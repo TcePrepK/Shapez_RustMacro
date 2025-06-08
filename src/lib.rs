@@ -165,7 +165,7 @@ pub fn shapez_shape(input: TokenStream) -> TokenStream {
 
     // Ensure the input is valid
     let short_key = input.value();
-    if short_key.len() < 8 {
+    if short_key.len() < QUADS_AMOUNT * 2 {
         return error!(input, "Invalid input");
     }
 
