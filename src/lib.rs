@@ -63,14 +63,10 @@ fn check_layer(input: &LitStr, layer: &str) -> proc_macro2::TokenStream {
         return error!(input, "Invalid layer");
     }
 
-    // Ensure the quad amount is valid
-    let quads = layer.as_bytes().chunks(2).collect::<Vec<&[u8]>>();
-    if quads.len() != QUADS_AMOUNT {
-        return error!(input, "Invalid quad amount");
-    }
-
+    // Check every quad
     let mut none_count = 0;
     let mut quad_tokens = Vec::with_capacity(4);
+    let quads = layer.as_bytes().chunks(2).collect::<Vec<&[u8]>>();
     for &quad in quads.iter() {
         match check_quad(input, quad) {
             Some(quad_token) => quad_tokens.push(quad_token),
