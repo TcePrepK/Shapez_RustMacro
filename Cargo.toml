@@ -1,0 +1,17 @@
+[package]
+name = "shapez_macro"
+version = "0.1.0"
+edition = "2024"
+description = "A Rust procedural macro to construct `Shape` structures for the game shapez from short-form shape keys like \"RuCw--Cw:----Ru--\"."
+license = "MIT"
+repository = "https://github.com/TcePrepK/Shapez_RustMacro"
+keywords = ["shapez", "game", "macro", "procedural-macro"]
+categories = ["game-development", "games", "rust-patterns"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = "2.0"
