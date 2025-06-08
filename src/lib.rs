@@ -5,8 +5,6 @@ use syn::{parse_macro_input, LitStr};
 
 const MAX_LAYERS: usize = 4;
 const QUADS_AMOUNT: usize = 4;
-const SUB_SHAPES: [u8; 4] = [b'C', b'S', b'R', b'W'];
-const COLORS: [u8; 8] = [b'r', b'g', b'b', b'y', b'p', b'c', b'w', b'u'];
 
 macro_rules! error {
     ($input:expr, $msg:expr) => {
@@ -18,25 +16,17 @@ macro_rules! error {
 
 fn get_sub_shape(input: &LitStr, sub_shape: &u8) -> proc_macro2::TokenStream {
     // Ensure the sub-shape is valid
-    if !SUB_SHAPES.contains(sub_shape) {
-        return error!(input, "Invalid sub-shape");
-    }
-
     match sub_shape {
         b'C' => quote! { Subshape::Circle },
         b'S' => quote! { Subshape::Square },
         b'R' => quote! { Subshape::Rectangle },
         b'W' => quote! { Subshape::Windmill },
-        _ => unreachable!(),
+        _ => error!(input, "Invalid sub-shape"),
     }
 }
 
 fn get_color(input: &LitStr, color: &u8) -> proc_macro2::TokenStream {
     // Ensure the color is valid
-    if !COLORS.contains(color) {
-        return error!(input, "Invalid color");
-    }
-
     match color {
         b'r' => quote! { Color::Red },
         b'g' => quote! { Color::Green },
@@ -46,7 +36,7 @@ fn get_color(input: &LitStr, color: &u8) -> proc_macro2::TokenStream {
         b'c' => quote! { Color::Cyan },
         b'w' => quote! { Color::White },
         b'u' => quote! { Color::Uncolored },
-        _ => unreachable!(),
+        _ => error!(input, "Invalid color"),
     }
 }
 
