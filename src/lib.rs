@@ -202,8 +202,8 @@ fn check_key(input: &LitStr, shape: &str) -> proc_macro2::TokenStream {
 /// # Errors
 ///
 /// Compile-time errors are emitted if:
-/// - An empty string is passed
-/// - The string contains more than 4 layers
+/// - An empty key is passed
+/// - The key contains more than 4 layers
 /// - A layer contains more or less than 4 quads
 /// - A quad contains invalid sub-shape or color
 /// - An empty layer is passed
